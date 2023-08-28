@@ -17,6 +17,8 @@
 # For more information on the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # For more samples to get started with GitHub Action workflows to deploy to Azure: https://github.com/Azure/actions-workflow-samples
 
+
+
 on:
   push:
     branches: [ "master" ]
@@ -36,11 +38,18 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+      creds: ${{ secrets.AZURE_CREDENTIALS }}
+
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
         node-version: ${{ env.NODE_VERSION }}
         cache: 'npm'
+
 
     - name: npm install, build, and test
       run: |
